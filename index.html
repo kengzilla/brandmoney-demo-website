@@ -124,7 +124,7 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, createContext, useContext } = React;
+        const { useState, useEffect, useMemo, createContext, useContext } = React;
         const { createRoot } = ReactDOM;
         const { MemoryRouter, Routes, Route, Link, useNavigate, useLocation } = ReactRouterDOM;
 
@@ -205,6 +205,14 @@
                 thPrice: 'ราคาปัจจุบัน',
                 thDelta: '24 ชม.',
                 thStatus: 'สถานะ',
+                filterDialogTitle: 'ค้นหาและกรองการวิเคราะห์',
+                filterCategory: 'หมวดหมู่สินทรัพย์',
+                filterBrand: 'แบรนด์',
+                filterModel: 'รุ่น',
+                filterYear: 'ปี (อ้างอิง)',
+                filterSearchBtn: 'ค้นหา',
+                filterClose: 'ปิด',
+                filterApplied: (parts) => `เงื่อนไขที่ใช้: ${parts.join(' · ')}`,
             },
             crm: {
                 totalBalance: 'มูลค่ารวมพอร์ต',
@@ -322,6 +330,254 @@
             { name: 'Rolex Cosmograph Daytona', ref: '116506-0001', price: '112,000 USD', delta: '+2.88%', status: 'ขาขึ้น', color: 'text-green-700' },
             { name: 'A. Lange & Söhne Zeitwerk', ref: '140.048F', price: '215,900 USD', delta: '0.00%', status: 'สินทรัพย์หายาก', color: 'text-on-surface-variant' },
         ];
+
+        /** ตัวอย่างข้อมูลสำหรับดีโม — หมวด → แบรนด์ → รุ่น */
+        const MARKET_FILTER_TREE = [
+            {
+                id: 'watches',
+                label: 'นาฬิกาหรูระดับพรีเมียม',
+                brands: [
+                    {
+                        id: 'patek',
+                        label: 'Patek Philippe',
+                        models: ['Nautilus 5711/1A', 'Aquanaut 5167A', 'Grand Complications 5270P'],
+                    },
+                    {
+                        id: 'rolex',
+                        label: 'Rolex',
+                        models: ['Cosmograph Daytona 126500LN', 'Submariner Date 126610LV', 'GMT-Master II 126710BLNR'],
+                    },
+                    {
+                        id: 'audemars',
+                        label: 'Audemars Piguet',
+                        models: ['Royal Oak 15202ST', 'Royal Oak Offshore 26420SO'],
+                    },
+                ],
+            },
+            {
+                id: 'bags',
+                label: 'กระเป๋าแบรนด์เนม',
+                brands: [
+                    {
+                        id: 'hermes',
+                        label: 'Hermès',
+                        models: ['Birkin 30 Togo', 'Kelly 28 Sellier', 'Constance Mini'],
+                    },
+                    {
+                        id: 'chanel',
+                        label: 'Chanel',
+                        models: ['Classic Flap Medium', 'Chanel 19 Small', 'Boy Medium'],
+                    },
+                    {
+                        id: 'lv',
+                        label: 'Louis Vuitton',
+                        models: ['Capucines MM', 'Twist PM', 'Petite Malle'],
+                    },
+                ],
+            },
+            {
+                id: 'jewelry',
+                label: 'เครื่องประดับหรู',
+                brands: [
+                    {
+                        id: 'cartier',
+                        label: 'Cartier',
+                        models: ['Love Bracelet WG', 'Trinity Ring Classic', 'Tank Must Large'],
+                    },
+                    {
+                        id: 'vca',
+                        label: 'Van Cleef & Arpels',
+                        models: ['Vintage Alhambra 5 motifs', 'Perlée bracelet'],
+                    },
+                    {
+                        id: 'bvlgari',
+                        label: 'Bvlgari',
+                        models: ['Serpenti Viper ring', 'B.zero1 bracelet'],
+                    },
+                ],
+            },
+        ];
+
+        const MARKET_FILTER_YEARS = ['2024', '2023', '2022', '2021', '2020', '2019', '2018'];
+
+        const MarketFilterDialog = ({ open, onClose, onSearch }) => {
+            const [categoryId, setCategoryId] = useState(MARKET_FILTER_TREE[0].id);
+            const [brandId, setBrandId] = useState(MARKET_FILTER_TREE[0].brands[0].id);
+            const [model, setModel] = useState(MARKET_FILTER_TREE[0].brands[0].models[0]);
+            const [year, setYear] = useState(MARKET_FILTER_YEARS[0]);
+
+            const category = useMemo(
+                () => MARKET_FILTER_TREE.find((c) => c.id === categoryId) || MARKET_FILTER_TREE[0],
+                [categoryId],
+            );
+            const brand = useMemo(
+                () => category.brands.find((b) => b.id === brandId) || category.brands[0],
+                [category, brandId],
+            );
+
+            useEffect(() => {
+                if (!open) return undefined;
+                const prev = document.body.style.overflow;
+                document.body.style.overflow = 'hidden';
+                const onKey = (e) => {
+                    if (e.key === 'Escape') onClose();
+                };
+                window.addEventListener('keydown', onKey);
+                return () => {
+                    document.body.style.overflow = prev;
+                    window.removeEventListener('keydown', onKey);
+                };
+            }, [open, onClose]);
+
+            if (!open) return null;
+
+            const selectClass =
+                'w-full appearance-none rounded-full border border-[#72503A]/20 bg-[#e8dcc8] py-3.5 pl-4 pr-10 font-body text-sm font-medium text-[#2b160f] shadow-inner outline-none transition focus:ring-2 focus:ring-primary/60';
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                onSearch({
+                    category: category.label,
+                    brand: brand.label,
+                    model,
+                    year,
+                });
+            };
+
+            return (
+                <div
+                    className="fixed inset-0 z-[60] flex items-end justify-center bg-black/55 p-0 backdrop-blur-[2px] sm:items-center sm:p-4"
+                    role="presentation"
+                    onClick={onClose}
+                >
+                    <div
+                        className="flex max-h-[min(92dvh,720px)] w-full max-w-lg flex-col rounded-t-3xl border border-[#72503A]/25 bg-[#2b160f] shadow-2xl sm:max-h-[min(85vh,640px)] sm:rounded-3xl"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="market-filter-title"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="flex shrink-0 items-center justify-between border-b border-white/10 px-5 pb-3 pt-4 sm:px-6 sm:pt-5">
+                            <h2 id="market-filter-title" className="font-headline text-lg font-bold text-[#FFEFD6] sm:text-xl">
+                                {copy.market.filterDialogTitle}
+                            </h2>
+                            <button
+                                type="button"
+                                className="rounded-full p-2 text-[#FFEFD6]/80 transition hover:bg-white/10 hover:text-[#FFEFD6]"
+                                onClick={onClose}
+                                aria-label={copy.market.filterClose}
+                            >
+                                <span className="material-symbols-outlined text-2xl">close</span>
+                            </button>
+                        </div>
+                        <div className="mx-auto mt-1 h-1 w-10 shrink-0 rounded-full bg-[#FFEFD6]/25 lg:hidden" aria-hidden />
+                        <form
+                            className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto overscroll-contain px-5 py-5 sm:gap-6 sm:px-6 sm:py-6"
+                            style={{ paddingBottom: 'max(1.25rem, env(safe-area-inset-bottom))' }}
+                            onSubmit={handleSubmit}
+                        >
+                            <label className="block">
+                                <span className="mb-2 block text-center font-label text-xs font-semibold uppercase tracking-widest text-[#FFEFD6]/90">
+                                    {copy.market.filterCategory}
+                                </span>
+                                <div className="relative">
+                                    <select
+                                        className={selectClass}
+                                        value={categoryId}
+                                        onChange={(e) => {
+                                            const id = e.target.value;
+                                            setCategoryId(id);
+                                            const cat = MARKET_FILTER_TREE.find((c) => c.id === id);
+                                            if (cat) {
+                                                setBrandId(cat.brands[0].id);
+                                                setModel(cat.brands[0].models[0]);
+                                            }
+                                        }}
+                                    >
+                                        {MARKET_FILTER_TREE.map((c) => (
+                                            <option key={c.id} value={c.id}>
+                                                {c.label}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#56423b] material-symbols-outlined text-xl">
+                                        expand_more
+                                    </span>
+                                </div>
+                            </label>
+                            <label className="block">
+                                <span className="mb-2 block text-center font-label text-xs font-semibold uppercase tracking-widest text-[#FFEFD6]/90">
+                                    {copy.market.filterBrand}
+                                </span>
+                                <div className="relative">
+                                    <select
+                                        className={selectClass}
+                                        value={brandId}
+                                        onChange={(e) => {
+                                            const id = e.target.value;
+                                            setBrandId(id);
+                                            const b = category.brands.find((x) => x.id === id);
+                                            if (b) setModel(b.models[0]);
+                                        }}
+                                    >
+                                        {category.brands.map((b) => (
+                                            <option key={b.id} value={b.id}>
+                                                {b.label}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#56423b] material-symbols-outlined text-xl">
+                                        expand_more
+                                    </span>
+                                </div>
+                            </label>
+                            <label className="block">
+                                <span className="mb-2 block text-center font-label text-xs font-semibold uppercase tracking-widest text-[#FFEFD6]/90">
+                                    {copy.market.filterModel}
+                                </span>
+                                <div className="relative">
+                                    <select className={selectClass} value={model} onChange={(e) => setModel(e.target.value)}>
+                                        {brand.models.map((m) => (
+                                            <option key={m} value={m}>
+                                                {m}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#56423b] material-symbols-outlined text-xl">
+                                        expand_more
+                                    </span>
+                                </div>
+                            </label>
+                            <label className="block">
+                                <span className="mb-2 block text-center font-label text-xs font-semibold uppercase tracking-widest text-[#FFEFD6]/90">
+                                    {copy.market.filterYear}
+                                </span>
+                                <div className="relative">
+                                    <select className={selectClass} value={year} onChange={(e) => setYear(e.target.value)}>
+                                        {MARKET_FILTER_YEARS.map((y) => (
+                                            <option key={y} value={y}>
+                                                {y}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#56423b] material-symbols-outlined text-xl">
+                                        expand_more
+                                    </span>
+                                </div>
+                            </label>
+                            <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:justify-center">
+                                <button
+                                    type="submit"
+                                    className="font-label w-full rounded-full bg-[#f0dcc4] py-3.5 text-sm font-bold tracking-wide text-[#2b160f] shadow-md transition hover:bg-[#FFEFD6] active:scale-[0.99] sm:w-auto sm:min-w-[200px] sm:px-10"
+                                >
+                                    {copy.market.filterSearchBtn}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            );
+        };
 
         const CRM_MATRIX_TOTAL = 1085;
 
@@ -687,8 +943,20 @@
             );
         };
 
-        const MarketPricePage = () => (
+        const MarketPricePage = () => {
+            const [filterOpen, setFilterOpen] = useState(false);
+            const [appliedFilter, setAppliedFilter] = useState(null);
+
+            const handleFilterSearch = (criteria) => {
+                setAppliedFilter(
+                    copy.market.filterApplied([criteria.category, criteria.brand, criteria.model, `ปี ${criteria.year}`]),
+                );
+                setFilterOpen(false);
+            };
+
+            return (
             <DashboardLayout title={copy.pages.marketTitle}>
+                <MarketFilterDialog open={filterOpen} onClose={() => setFilterOpen(false)} onSearch={handleFilterSearch} />
                 <section className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-5">
                     <div className="group rounded-lg border border-[#72503A]/15 bg-[#FFEFD6] p-5 shadow-sm transition-colors hover:bg-[#f0e0c9] sm:p-6">
                         <p className="mb-3 font-label text-xs uppercase tracking-widest text-[#72503A] sm:mb-4">{copy.market.catLabel}</p>
@@ -730,12 +998,19 @@
 
                 <section className="space-y-4 sm:space-y-6">
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                        <div>
+                        <div className="min-w-0">
                             <h2 className="font-headline text-xl tracking-tight text-[#FFEFD6] sm:text-2xl">{copy.market.sectionTitle}</h2>
                             <p className="mt-1 text-xs text-[#FFEFD6]/70">{copy.market.usdNote}</p>
+                            {appliedFilter && (
+                                <p className="mt-2 max-w-2xl font-label text-xs leading-relaxed text-[#FFEFD6]/85 sm:text-sm">{appliedFilter}</p>
+                            )}
                         </div>
                         <div className="flex flex-wrap gap-2 sm:gap-4">
-                            <button type="button" className="font-label flex items-center gap-2 rounded-sm border border-[#72503A]/20 bg-[#FFEFD6] px-3 py-2 text-xs text-[#2b160f] shadow-sm transition-colors hover:bg-[#f0e0c9] sm:px-4 sm:text-sm">
+                            <button
+                                type="button"
+                                className="font-label flex items-center gap-2 rounded-sm border border-[#72503A]/20 bg-[#FFEFD6] px-3 py-2 text-xs text-[#2b160f] shadow-sm transition-colors hover:bg-[#f0e0c9] sm:px-4 sm:text-sm"
+                                onClick={() => setFilterOpen(true)}
+                            >
                                 <span className="material-symbols-outlined text-sm">filter_list</span>
                                 {copy.market.filter}
                             </button>
@@ -778,7 +1053,8 @@
                     </div>
                 </section>
             </DashboardLayout>
-        );
+            );
+        };
 
         const CRMAvatar = ({ initials }) => (
             <div
