@@ -1,0 +1,14 @@
+{
+  "name": "brandname-money-portal",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static Brandname Money wealth portal (single-page HTML)",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node server.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

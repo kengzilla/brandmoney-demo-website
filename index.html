@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html class="dark" lang="th">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>โซเวริญ เวลธ์ | พอร์ทัลบริหารความมั่งคั่งส่วนบุคคล</title>
+
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/history@5/umd/history.development.js"></script>
+    <script src="https://unpkg.com/react-router@6.3.0/umd/react-router.development.js"></script>
+    <script src="https://unpkg.com/react-router-dom@6.3.0/umd/react-router-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <!-- Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Serif+Thai:wght@400;600;700&family=Noto+Serif:ital,wght@0,400;0,700;0,800;1,400&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "surface": "#72503A",
+                "on-secondary-fixed-variant": "#56423b",
+                "surface-variant": "#3a3331",
+                "on-tertiary-fixed-variant": "#4a4737",
+                "on-secondary-fixed": "#271812",
+                "surface-bright": "#3e3835",
+                "inverse-primary": "#735c00",
+                "inverse-on-surface": "#352f2d",
+                "tertiary-fixed-dim": "#ccc6b1",
+                "on-primary-fixed": "#241a00",
+                "on-background": "#ebe0dc",
+                "on-tertiary-container": "#999481",
+                "tertiary-fixed": "#e9e2cc",
+                "secondary-fixed-dim": "#ddc1b7",
+                "surface-dim": "#72503A",
+                "primary-fixed-dim": "#e9c349",
+                "primary": "#735c00",
+                "secondary-fixed": "#fadcd2",
+                "on-primary-fixed-variant": "#574500",
+                "on-primary-container": "#b39016",
+                "on-secondary-container": "#cbafa6",
+                "tertiary-container": "#302d1e",
+                "surface-container-lowest": "#120d0b",
+                "on-tertiary": "#333121",
+                "on-surface-variant": "#504442",
+                "on-error-container": "#ffdad6",
+                "tertiary": "#5a5441",
+                "inverse-surface": "#ebe0dc",
+                "on-surface": "#271812",
+                "outline-variant": "#9c8d8b",
+                "surface-container-high": "#FFEFD6",
+                "secondary-container": "#56423b",
+                "secondary": "#ddc1b7",
+                "on-secondary": "#3e2c26",
+                "error": "#ffb4ab",
+                "surface-container": "#241e1c",
+                "primary-container": "#382b00",
+                "on-tertiary-fixed": "#1e1c0e",
+                "primary-fixed": "#ffe088",
+                "on-primary": "#3c2f00",
+                "surface-tint": "#e9c349",
+                "surface-container-highest": "#3a3331",
+                "on-error": "#690005",
+                "error-container": "#93000a",
+                "background": "#72503A",
+                "surface-container-low": "#201a18",
+                "outline": "#9c8d8b"
+              },
+              fontFamily: {
+                "headline": ["Noto Serif Thai", "Noto Serif", "serif"],
+                "body": ["Noto Sans Thai", "Noto Sans", "sans-serif"],
+                "label": ["Noto Sans Thai", "Noto Sans", "sans-serif"]
+              },
+              borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+            },
+          },
+        }
+    </script>
+
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .geometric-lines {
+            background-image:
+                linear-gradient(30deg, #5d412f 12%, transparent 12.5%, transparent 87%, #5d412f 87.5%, #5d412f),
+                linear-gradient(150deg, #5d412f 12%, transparent 12.5%, transparent 87%, #5d412f 87.5%, #5d412f),
+                linear-gradient(30deg, #5d412f 12%, transparent 12.5%, transparent 87%, #5d412f 87.5%, #5d412f),
+                linear-gradient(150deg, #5d412f 12%, transparent 12.5%, transparent 87%, #5d412f 87.5%, #5d412f),
+                linear-gradient(60deg, #563c2c 25%, transparent 25.5%, transparent 75%, #563c2c 75%, #563c2c),
+                linear-gradient(60deg, #563c2c 25%, transparent 25.5%, transparent 75%, #563c2c 75%, #563c2c);
+            background-size: 80px 140px;
+            background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+        }
+        .editorial-gradient {
+            background: linear-gradient(135deg, #e9c349 0%, #b39016 100%);
+        }
+        .premium-gradient {
+            background: linear-gradient(135deg, #e9c176 0%, #4d3600 100%);
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #72503A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4d3600;
+        }
+        body {
+            background-color: #72503A;
+        }
+        .serif-text { font-family: 'Noto Serif Thai', 'Noto Serif', serif; }
+    </style>
+</head>
+<body class="font-body">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, createContext, useContext } = React;
+        const { createRoot } = ReactDOM;
+        const { MemoryRouter, Routes, Route, Link, useNavigate, useLocation } = ReactRouterDOM;
+
+        const fmtBaht = (value) =>
+            new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', maximumFractionDigits: 0 }).format(value);
+
+        /** ชื่อเดียวกันใน Sidebar และหัวข้อหลัก (TopHeader) ของแต่ละหน้า */
+        const menuPageTitles = {
+            market: 'วิเคราะห์ราคาตลาดสินทรัพย์',
+            crm: 'แบ่งกลุ่มลูกค้า CRM',
+            credit: 'คะแนนความเสี่ยงด้านสินเชื่อ',
+            npl: 'วิเคราะห์สินเชื่อเสีย (NPL)',
+        };
+
+        const copy = {
+            brand: {
+                name: 'โซเวริญ',
+                tagline: 'การเงินเฉพาะกลุ่ม',
+                logoUrl: 'https://brandnamemoney.com/wp-content/uploads/2025/04/LOGO-BM-2025-2.png',
+            },
+            nav: {
+                market: menuPageTitles.market,
+                crm: menuPageTitles.crm,
+                credit: menuPageTitles.credit,
+                npl: menuPageTitles.npl,
+                support: 'ช่วยเหลือ',
+                signOut: 'ออกจากระบบ',
+            },
+            user: {
+                name: 'วิชัย ศรีสุวรรณ',
+                role: 'หัวหน้าฝ่ายบริหารความเสี่ยง',
+            },
+            header: {
+                overview: 'ภาพรวม',
+                realtime: 'ข้อมูลเรียลไทม์',
+                searchPlaceholder: 'ค้นหาสินทรัพย์...',
+                openMenu: 'เปิดเมนูนำทาง',
+                closeMenu: 'ปิดเมนู',
+            },
+            login: {
+                welcome: 'ยินดีต้อนรับอีกครั้ง',
+                sub: 'เข้าสู่พอร์ทัลบริหารความมั่งคั่งส่วนบุคคล',
+                accountLabel: 'ชื่อบัญชีผู้ใช้',
+                passwordLabel: 'รหัสผ่าน',
+                forgot: 'ลืมรหัส?',
+                submit: 'เข้าสู่ระบบ',
+                noAccount: 'ยังไม่มีบัญชี?',
+                apply: 'สมัครสมาชิก',
+                footerEncrypt: 'เข้ารหัสระดับสถาบันการเงิน',
+                footerCopy: '© 2569 โซเวริญ ไพรเวทแบงก์กิ้ง — ข้อมูลจำลองสำหรับการนำเสนอ',
+            },
+            pages: {
+                marketTitle: menuPageTitles.market,
+                crmTitle: menuPageTitles.crm,
+                creditTitle: menuPageTitles.credit,
+                creditHeroTitle: menuPageTitles.credit,
+                nplTitle: menuPageTitles.npl,
+                nplHeroTitle: 'วิเคราะห์สินเชื่อที่ไม่ก่อรายได้',
+            },
+            market: {
+                catLabel: 'หมวดสินทรัพย์',
+                catValue: 'นาฬิกาหรูระดับพรีเมียม',
+                yoy: '+12.4% ต่อปี',
+                brandLabel: 'แบรนด์หลัก',
+                brandSub: 'คอมพลิเคชันขั้นสูง',
+                modelLabel: 'รุ่นเด่น',
+                liquidity: 'สภาพคล่องสูง',
+                eraLabel: 'ยุควินเทจ',
+                eraSub: 'ช่วงมูลค่าสูงสุด',
+                indexStatus: 'สถานะดัชนี',
+                indexName: 'SOV-INDEX',
+                sectionTitle: 'ดัชนีประเมินมูลค่าสถาบัน',
+                usdNote: 'ราคาอ้างอิงตลาดทุติยภพ (USD)',
+                filter: 'กรองการวิเคราะห์',
+                export: 'ส่งออกบัญชีแยกประเภท',
+                thAsset: 'รายการสินทรัพย์',
+                thRef: 'รหัสอ้างอิง',
+                thPrice: 'ราคาปัจจุบัน',
+                thDelta: '24 ชม.',
+                thStatus: 'สถานะ',
+            },
+            crm: {
+                totalBalance: 'มูลค่ารวมพอร์ต',
+                activeSegmentsLabel: 'กลุ่มที่ใช้งาน',
+                activeSegmentsValue: '12 กลุ่ม',
+                growthIndexLabel: 'ดัชนีการเติบโต',
+                growthIndexValue: '+8.4%',
+                segATitle: 'กลุ่ม A',
+                segASub: 'ลูกค้า HNW ระดับสูงสุด',
+                segBTitle: 'กลุ่ม B',
+                segBSub: 'ลูกค้าสถาบัน / นิติบุคคล',
+                segCTitle: 'กลุ่ม C',
+                segCSub: 'กลุ่มพรีเฟอร์ — ความเสี่ยงต่ำ',
+                clients142: '142 ราย',
+                entities38: '38 นิติบุคคล',
+                clients905: '905 ราย',
+                segAvgEquity: 'เงินเท่าทุนเฉลี่ย: 434 ล้านบาท',
+                segBAssets: 'สินทรัพย์รวม: 8,400 ล้านบาท+',
+                segCTarget: 'เป้าหมาย: ความเสี่ยงต่ำ',
+                matrixTitle: 'เมทริกซ์แบ่งกลุ่มลูกค้า',
+                matrixSubtitle: 'ภาพรวมลูกค้าตามกลุ่มเป้าหมายและมูลค่าเปิดรับความเสี่ยง',
+                filter: 'กรอง',
+                downloadReport: 'ดาวน์โหลดรายงาน',
+                thLoan: 'รหัสสินเชื่อ',
+                thClient: 'ลูกค้าหลัก',
+                thSegment: 'การจัดกลุ่ม',
+                thExposure: 'มูลค่าเปิดรับความเสี่ยง',
+                thStatus: 'สถานะ',
+                stReview: 'รอตรวจสอบ',
+                stCompliant: 'ปฏิบัติตามครบถ้วน',
+                stHighRisk: 'ความเสี่ยงสูง',
+                tableFooter: (shown, total) =>
+                    `แสดง ${shown} จาก ${total.toLocaleString('th-TH')} รายการ`,
+                badgeA: 'กลุ่ม A',
+                badgeB: 'กลุ่ม B',
+                badgeC: 'กลุ่ม C',
+            },
+            credit: {
+                kicker: 'การวิเคราะห์เชิงสถาบัน',
+                generateReport: 'สร้างรายงาน',
+                filterParams: 'ตัวกรองพารามิเตอร์',
+                gradeAA: 'ระดับ AA',
+                gradeBB: 'ระดับ BB',
+                gradeCC: 'ระดับ CC',
+                aaDesc: 'ความน่าจะผิดนัดชำระต่ำมาก',
+                bbDesc: 'โปรไฟล์ความเสี่ยงปานกลาง',
+                ccDesc: 'ความเปิดรับความเสี่ยงสูงขึ้น',
+                aaPercentile: '12% บนสุด',
+                bbPercentile: 'กลาง 45%',
+                ccPercentile: '8% ล่าง',
+                assetsFooter: (n) => `${n.toLocaleString('th-TH')} สินทรัพย์`,
+                trendUp: '↑ 2.4%',
+                trendDown: '↓ 0.8%',
+                trendFlat: '— ทรงตัว',
+                premium: 'พรีเมียม',
+                standard: 'มาตรฐาน',
+                speculative: 'เก็งกำไร',
+                ledgerTitle: 'สมุดรายชื่อการวิเคราะห์สินทรัพย์',
+                ledgerShowing: (n) => `แสดง ${n.toLocaleString('th-TH')} รายการ`,
+                thLoanId: 'รหัสเงินกู้',
+                thAge: 'อายุ',
+                thIncome: 'รายได้ต่อปี',
+                thRisk: 'ระดับความเสี่ยง',
+                thNcb: 'เอกสารเครดิต',
+                thAction: 'การดำเนินการ',
+                ageUnit: 'ปี',
+            },
+            npl: {
+                subtitle:
+                    'การประเมินความเสี่ยงพอร์ตรวมและการติดตามสินทรัพย์มีปัญหา สำหรับไตรมาสบัญชีปัจจุบัน',
+                exportReport: 'ส่งออกรายงาน',
+                riskPolicy: 'นโยบายบริหารความเสี่ยง',
+                aum: 'สินทรัพย์ภายใต้การบริหาร',
+                aumValueMain: '41.2',
+                aumValueUnit: 'พันล้านบาท',
+                nplAmt: 'ยอดสินเชื่อเสีย',
+                nplAmtMain: '1,158',
+                nplAmtUnit: 'ล้านบาท',
+                nplMoM: '↗ +2.8% เทียบเดือนก่อน',
+                nplRatio: 'อัตรา NPL รวม',
+                recovery: 'ประสิทธิภาพการกู้คืน',
+                recoveryTarget: 'เป้าหมาย: 60.0%',
+                segmentTitle: 'ความเปราะบางตามกลุ่มพอร์ต',
+                tableFooter: (shown, total) => `แสดง ${shown} จาก ${total} กลุ่มสินทรัพย์`,
+                viewDetails: 'ดูรายละเอียด',
+                thCluster: 'กลุ่มสินทรัพย์',
+                thExposure: 'มูลค่าเปิดรับ',
+                thDpd: 'DPD (เฉลี่ย)',
+                thPar: 'PAR 30+',
+                thRatio: 'อัตรา NPL',
+                thStatus: 'สถานะ',
+                thAction: 'ดำเนินการ',
+                stPerforming: 'ปกติ',
+                stCritical: 'วิกฤต',
+                stWatchlist: 'เฝ้าระวัง',
+                historicalTitle: 'แนวโน้มย้อนหลัง',
+                historicalRange: '12 เดือนที่ผ่านมา',
+                liquidityTitle: 'แนวโน้มสภาพคล่อง',
+                liquidityBody:
+                    'ประมาณการกระแสเงินจากการกู้คืนในไตรมาส 4 คาดว่าจะเพิ่มขึ้น 12.5% ในส่วนสินเชื่อจำนองที่ไม่ก่อรายได้',
+                liquidityCta: 'ทบทวนแผนการกระจาย',
+            },
+        };
+
+        const NAV_ITEMS = [
+            { path: '/market', icon: 'trending_up', labelKey: 'market' },
+            { path: '/crm', icon: 'groups', labelKey: 'crm' },
+            { path: '/credit', icon: 'security', labelKey: 'credit' },
+            { path: '/npl', icon: 'analytics', labelKey: 'npl' },
+        ];
+
+        const MARKET_TABLE_ROWS = [
+            { name: 'Audemars Piguet Royal Oak', ref: '15202ST.OO.1240ST.01', price: '92,450 USD', delta: '-1.24%', status: 'ขาขึ้น', color: 'text-red-600' },
+            { name: 'Vacheron Constantin', ref: '4300V/120R-B064', price: '148,200 USD', delta: '+4.15%', status: 'ทรงตัว', color: 'text-green-700' },
+            { name: 'Rolex Cosmograph Daytona', ref: '116506-0001', price: '112,000 USD', delta: '+2.88%', status: 'ขาขึ้น', color: 'text-green-700' },
+            { name: 'A. Lange & Söhne Zeitwerk', ref: '140.048F', price: '215,900 USD', delta: '0.00%', status: 'สินทรัพย์หายาก', color: 'text-on-surface-variant' },
+        ];
+
+        const CRM_MATRIX_TOTAL = 1085;
+
+        const CRM_MATRIX_ROWS = [
+            {
+                id: 'SF-90443-XP',
+                client: 'อภิชาติ วงศ์ประเสริฐ',
+                initials: 'อว',
+                segment: 'A',
+                exposure: 89500000,
+                statusKey: 'review',
+            },
+            {
+                id: 'SF-88120-LM',
+                client: 'ศิริพร เทียนทอง',
+                initials: 'ศท',
+                segment: 'B',
+                exposure: 31200000,
+                statusKey: 'compliant',
+            },
+            {
+                id: 'SF-76201-MK',
+                client: 'ณัฐพล สุขสมบูรณ์',
+                initials: 'ณส',
+                segment: 'C',
+                exposure: 18200000,
+                statusKey: 'highrisk',
+            },
+            {
+                id: 'SF-53892-PR',
+                client: 'กิตติศักดิ์ เจริญทรัพย์',
+                initials: 'กจ',
+                segment: 'A',
+                exposure: 67800000,
+                statusKey: 'compliant',
+            },
+        ];
+
+        const crmSegmentBadgeClass = (seg) => {
+            if (seg === 'A') return 'border-[#775A19] bg-[#775A19]/10 text-[#574500]';
+            if (seg === 'B') return 'border-[#53433F] bg-[#53433F]/10 text-[#3e2c26]';
+            return 'border-[#72503A] bg-[#72503A]/8 text-[#56423b]';
+        };
+
+        const crmMatrixStatus = (key) => {
+            if (key === 'review') {
+                return {
+                    label: copy.crm.stReview,
+                    dot: 'bg-[#8B4513]',
+                    text: 'text-[#7a3d1a]',
+                };
+            }
+            if (key === 'compliant') {
+                return {
+                    label: copy.crm.stCompliant,
+                    dot: 'bg-green-600',
+                    text: 'text-green-800',
+                };
+            }
+            return {
+                label: copy.crm.stHighRisk,
+                dot: 'bg-[#BA1A1A]',
+                text: 'text-[#93000a]',
+            };
+        };
+
+        const crmBadgeLabel = (seg) => {
+            if (seg === 'A') return copy.crm.badgeA;
+            if (seg === 'B') return copy.crm.badgeB;
+            return copy.crm.badgeC;
+        };
+
+        const NPL_CLUSTER_TOTAL = 12;
+
+        const NPL_SEGMENT_ROWS = [
+            {
+                cluster: 'อสังหาริมทรัพย์เชิงพาณิชย์',
+                sub: 'พื้นที่สำนักงานเกรด A',
+                exposure: '14,125 ล้านบาท',
+                dpd: '42 วัน',
+                dpdWarn: false,
+                par: '12.4%',
+                ratio: '1.82%',
+                ratioWarn: false,
+                statusKey: 'performing',
+            },
+            {
+                cluster: 'โครงสร้างพื้นฐานอุตสาหกรรม',
+                sub: 'โรงไฟพลังงานหมุนเวียน',
+                exposure: '6,480 ล้านบาท',
+                dpd: '118 วัน',
+                dpdWarn: true,
+                par: '34.1%',
+                ratio: '8.45%',
+                ratioWarn: true,
+                statusKey: 'critical',
+            },
+            {
+                cluster: 'พอร์ตค้าปลีก',
+                sub: 'ศูนย์การค้าไฮสตรีท',
+                exposure: '10,240 ล้านบาท',
+                dpd: '14 วัน',
+                dpdWarn: false,
+                par: '4.2%',
+                ratio: '0.95%',
+                ratioWarn: false,
+                statusKey: 'performing',
+            },
+            {
+                cluster: 'สินเชื่อพาณิยกรรม',
+                sub: 'กองเรือขนส่งและโลจิสติกส์',
+                exposure: '10,800 ล้านบาท',
+                dpd: '68 วัน',
+                dpdWarn: false,
+                par: '19.8%',
+                ratio: '4.12%',
+                ratioWarn: false,
+                statusKey: 'watchlist',
+            },
+        ];
+
+        const nplStatusBadge = (key) => {
+            if (key === 'performing') return { label: copy.npl.stPerforming, className: 'bg-[#735c00]/15 text-[#5c4a00] ring-1 ring-[#735c00]/25' };
+            if (key === 'critical') return { label: copy.npl.stCritical, className: 'bg-[#ffdad6] text-[#93000a] ring-1 ring-[#BA1A1A]/30' };
+            return { label: copy.npl.stWatchlist, className: 'bg-[#e8d5c4] text-[#4d3600] ring-1 ring-[#72503A]/25' };
+        };
+
+        const CREDIT_LEDGER_TOTAL = 548;
+
+        const CREDIT_LEDGER_ROWS = [
+            { id: 'L-984210', product: 'สินเชื่อที่อยู่อาศัยระยะยาวดอกคงที่', age: 42, income: 18500000, grade: 'AA', ncbOk: true },
+            { id: 'L-882341', product: 'สินเชื่อรถยนต์', age: 36, income: 9200000, grade: 'AA', ncbOk: true },
+            { id: 'L-771902', product: 'สินเชื่อหมุนเวียนธุรกิจ', age: 51, income: 4800000, grade: 'BB', ncbOk: true },
+            { id: 'L-665430', product: 'บัตรเครดิตบุคคล', age: 29, income: 3600000, grade: 'BB', ncbOk: true },
+            { id: 'L-554821', product: 'สินเชื่อจำนำทะเบียนรถ', age: 44, income: 1200000, grade: 'CC', ncbOk: false },
+        ];
+
+        const creditGradeBadgeClass = (grade) => {
+            if (grade === 'AA') return 'bg-[#775A19] text-white';
+            if (grade === 'BB') return 'bg-[#53433F] text-white';
+            return 'bg-[#BA1A1A] text-white';
+        };
+
+        const DashboardUIContext = createContext(null);
+
+        const Sidebar = ({ mobileOpen, onClose }) => {
+            const location = useLocation();
+
+            return (
+                <aside
+                    className={`fixed left-0 top-0 z-50 flex h-screen w-64 flex-col border-r border-white/10 bg-[#171210] py-8 transition-transform duration-200 ease-out lg:translate-x-0 ${
+                        mobileOpen ? 'translate-x-0' : '-translate-x-full'
+                    }`}
+                    aria-label="เมนูหลัก"
+                >
+                    <div className="mb-12 flex items-start justify-between px-6 lg:px-8">
+                        <div className="min-w-0 flex-1 pr-2">
+                            <img
+                                src={copy.brand.logoUrl}
+                                alt="Brandname Money"
+                                className="h-10 w-auto max-w-[10.5rem] object-contain object-left sm:h-11"
+                                width="377"
+                                height="83"
+                                decoding="async"
+                            />
+                            <p className="mt-2 font-label text-xs uppercase tracking-[0.2em] text-white opacity-60">{copy.brand.tagline}</p>
+                        </div>
+                        <button
+                            type="button"
+                            className="rounded p-1 text-white/70 hover:bg-white/10 lg:hidden"
+                            onClick={onClose}
+                            aria-label={copy.header.closeMenu}
+                        >
+                            <span className="material-symbols-outlined">close</span>
+                        </button>
+                    </div>
+                    <nav className="flex flex-1 flex-col space-y-2">
+                        {NAV_ITEMS.map((item) => (
+                            <Link
+                                key={item.path}
+                                to={item.path}
+                                onClick={onClose}
+                                className={`mx-2 flex items-center gap-4 rounded-sm px-4 py-3 text-sm font-medium tracking-wide transition-all ${
+                                    location.pathname === item.path
+                                        ? 'translate-x-1 bg-white/10 text-[#e9c176]'
+                                        : 'text-white opacity-60 hover:bg-white/5 hover:text-[#e9c176]'
+                                }`}
+                            >
+                                <span className="material-symbols-outlined">{item.icon}</span>
+                                <span>{copy.nav[item.labelKey]}</span>
+                            </Link>
+                        ))}
+                    </nav>
+                    <div className="mt-auto space-y-2">
+                        <div className="mb-8 flex items-center gap-3 px-6">
+                            <div className="h-8 w-8 overflow-hidden rounded-full border border-[#e9c176]/20 bg-[#3a3331]">
+                                <img
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBT-edqzdlcvJgU3mSbCYPzFB3ORXuMi4xr2g5ev__oS_oapGUNgNSy4BYhK6v91PV4GneS7-0eeQTioN61uisgvmY2xS6shB_EGGfw3v62iAtRqTaSvP5lVClcm1lVw5OxkmDJ2elzRIPL5cFg40_tWCTOp3l3naGt7G6ZsrWodijVs_Y4-Y051c-rmSoe-lCoB56AmufemMV1W8VW9UyqXh2xlH9K0B9VeUq6rmRQlxHFSb0ZKxVj5XwvioBpi8i033bvv7MvhvFu"
+                                    alt=""
+                                    className="h-full w-full object-cover"
+                                />
+                            </div>
+                            <div className="min-w-0">
+                                <p className="text-[11px] font-semibold text-[#ebe0dc]">{copy.user.name}</p>
+                                <p className="text-[9px] text-[#ccc6b1] opacity-50">{copy.user.role}</p>
+                            </div>
+                        </div>
+                        <a
+                            className="mx-2 flex items-center gap-4 px-4 py-3 text-sm font-medium tracking-wide text-white opacity-60 transition-all hover:bg-white/5"
+                            href="#"
+                            onClick={onClose}
+                        >
+                            <span className="material-symbols-outlined">help_outline</span>
+                            <span>{copy.nav.support}</span>
+                        </a>
+                        <Link
+                            to="/"
+                            onClick={onClose}
+                            className="mx-2 flex items-center gap-4 px-4 py-3 text-sm font-medium tracking-wide text-white opacity-60 transition-all hover:bg-white/5"
+                        >
+                            <span className="material-symbols-outlined">logout</span>
+                            <span>{copy.nav.signOut}</span>
+                        </Link>
+                    </div>
+                </aside>
+            );
+        };
+
+        const TopHeader = ({ title }) => {
+            const { setMobileNavOpen } = useContext(DashboardUIContext);
+            const location = useLocation();
+            const showHamburger = location.pathname !== '/';
+
+            return (
+                <header className="sticky top-0 z-40 flex min-h-20 w-full flex-wrap items-center justify-between gap-3 border-b border-white/5 bg-surface/90 px-4 py-3 backdrop-blur-md sm:px-6 lg:px-10 xl:px-12">
+                    <div className="flex min-w-0 flex-1 items-center gap-3 sm:gap-6 lg:gap-8">
+                        {showHamburger && (
+                            <button
+                                type="button"
+                                className="shrink-0 rounded p-2 text-[#FFEFD6] hover:bg-white/10 lg:hidden"
+                                onClick={() => setMobileNavOpen(true)}
+                                aria-label={copy.header.openMenu}
+                            >
+                                <span className="material-symbols-outlined">menu</span>
+                            </button>
+                        )}
+                        <h2 className="font-headline min-w-0 text-lg font-bold tracking-tight text-[#FFEFD6] antialiased sm:text-xl">{title}</h2>
+                        <div className="hidden items-center gap-6 lg:flex">
+                            <a className="font-label border-b-2 border-[#FFEFD6] pb-1 text-sm text-[#FFEFD6]" href="#">{copy.header.overview}</a>
+                            <a className="font-label text-sm text-[#FFEFD6] opacity-70 transition-opacity hover:opacity-100" href="#">{copy.header.realtime}</a>
+                        </div>
+                    </div>
+                    <div className="flex w-full min-w-0 flex-shrink-0 items-center justify-end gap-3 sm:w-auto sm:gap-4 lg:gap-6">
+                        <div className="relative hidden min-w-0 md:block md:max-w-[12rem] lg:max-w-none">
+                            <input
+                                className="w-full max-w-xs rounded-sm border-none bg-[#2b160f]/20 px-4 py-2 text-sm text-[#FFEFD6] placeholder:text-[#FFEFD6]/40 focus:ring-1 focus:ring-primary lg:w-64"
+                                placeholder={copy.header.searchPlaceholder}
+                                type="search"
+                            />
+                        </div>
+                        <div className="flex items-center gap-2 text-[#FFEFD6] sm:gap-4">
+                            <button type="button" className="material-symbols-outlined rounded-full p-2 transition-colors hover:bg-white/10">notifications</button>
+                            <button type="button" className="material-symbols-outlined rounded-full p-2 transition-colors hover:bg-white/10">settings</button>
+                        </div>
+                    </div>
+                </header>
+            );
+        };
+
+        const DashboardLayout = ({ title, children }) => (
+            <div className="ml-0 flex min-h-screen flex-col bg-surface lg:ml-64">
+                <TopHeader title={title} />
+                <div className="flex-1 space-y-8 px-4 py-6 sm:space-y-10 sm:px-6 sm:py-8 lg:space-y-12 lg:p-12">{children}</div>
+            </div>
+        );
+
+        const TableScroll = ({ children, className = '' }) => (
+            <div className={`overflow-x-auto ${className}`}>
+                <div className="inline-block min-w-full align-middle">{children}</div>
+            </div>
+        );
+
+        const LoginPage = () => {
+            const navigate = useNavigate();
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                navigate('/market');
+            };
+
+            return (
+                <div className="relative flex min-h-screen flex-col items-center justify-between overflow-hidden bg-surface font-body text-on-surface">
+                    <div className="pointer-events-none absolute left-0 top-0 h-[307px] w-full geometric-lines opacity-20" style={{ maskImage: 'linear-gradient(to bottom, black, transparent)' }} />
+                    <header className="z-10 flex w-full items-center justify-center px-4 py-8 sm:px-6 sm:py-12">
+                        <img
+                            alt="Brandname Money"
+                            className="h-10 w-auto max-w-[min(100%,20rem)] object-contain object-center sm:h-12 md:h-14"
+                            src={copy.brand.logoUrl}
+                            width="377"
+                            height="83"
+                            decoding="async"
+                        />
+                    </header>
+                    <main className="z-10 w-full max-w-md px-4 pb-16 sm:px-6 sm:pb-24">
+                        <div className="relative overflow-hidden rounded-xl bg-surface-container-high p-6 shadow-[0_20px_40px_rgba(40,28,21,0.4)] sm:p-8 md:p-12">
+                            <div className="mb-8 text-center sm:mb-10">
+                                <h2 className="mb-2 font-headline text-2xl text-on-surface">{copy.login.welcome}</h2>
+                                <p className="font-label text-sm text-tertiary">{copy.login.sub}</p>
+                            </div>
+                            <form className="space-y-6" onSubmit={handleSubmit}>
+                                <div className="space-y-2">
+                                    <label className="font-label block text-xs uppercase tracking-widest text-tertiary">{copy.login.accountLabel}</label>
+                                    <div className="relative">
+                                        <input
+                                            className="w-full rounded-lg border-none bg-secondary-fixed px-4 py-3 text-on-secondary-fixed transition-all placeholder-on-secondary-fixed-variant focus:ring-2 focus:ring-primary"
+                                            defaultValue="wichai.s@sovereign.wm"
+                                            type="text"
+                                            autoComplete="username"
+                                        />
+                                        <span className="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-lg text-on-secondary-fixed-variant">person</span>
+                                    </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <div className="flex items-center justify-between gap-2">
+                                        <label className="font-label block text-xs uppercase tracking-widest text-tertiary">{copy.login.passwordLabel}</label>
+                                        <a className="text-[10px] font-bold uppercase tracking-tighter text-primary transition-opacity hover:opacity-80" href="#">{copy.login.forgot}</a>
+                                    </div>
+                                    <div className="relative">
+                                        <input
+                                            className="w-full rounded-lg border-none bg-secondary-fixed px-4 py-3 text-on-secondary-fixed transition-all placeholder-on-secondary-fixed-variant focus:ring-2 focus:ring-primary"
+                                            defaultValue="••••••••"
+                                            type="password"
+                                            autoComplete="current-password"
+                                        />
+                                        <span className="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-lg text-on-secondary-fixed-variant">lock</span>
+                                    </div>
+                                </div>
+                                <div className="pt-4">
+                                    <button
+                                        className="font-label w-full rounded-sm py-4 text-sm font-semibold uppercase tracking-[0.15em] text-on-primary shadow-lg transition-all editorial-gradient hover:shadow-primary/20 active:scale-[0.98] sm:tracking-[0.2em]"
+                                        type="submit"
+                                    >
+                                        {copy.login.submit}
+                                    </button>
+                                </div>
+                            </form>
+                            <div className="mt-8 border-t border-outline-variant/20 pt-8 text-center sm:mt-10">
+                                <p className="text-xs text-tertiary">
+                                    {copy.login.noAccount}{' '}
+                                    <a className="font-bold text-primary hover:underline" href="#">{copy.login.apply}</a>
+                                </p>
+                            </div>
+                        </div>
+                    </main>
+                    <div className="pointer-events-none absolute bottom-0 left-0 h-[307px] w-full geometric-lines opacity-20" style={{ maskImage: 'linear-gradient(to top, black, transparent)' }} />
+                    <footer className="z-10 flex w-full flex-col items-center justify-between gap-4 px-4 py-6 text-center text-[10px] uppercase tracking-widest text-white/60 sm:px-6 sm:py-8 md:flex-row md:text-left">
+                        <div className="flex items-center gap-2">
+                            <span className="material-symbols-outlined text-sm">verified_user</span>
+                            <span>{copy.login.footerEncrypt}</span>
+                        </div>
+                        <div className="max-w-md leading-relaxed normal-case tracking-normal">{copy.login.footerCopy}</div>
+                    </footer>
+                </div>
+            );
+        };
+
+        const MarketPricePage = () => (
+            <DashboardLayout title={copy.pages.marketTitle}>
+                <section className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-5">
+                    <div className="group rounded-lg border border-[#72503A]/15 bg-[#FFEFD6] p-5 shadow-sm transition-colors hover:bg-[#f0e0c9] sm:p-6">
+                        <p className="mb-3 font-label text-xs uppercase tracking-widest text-[#72503A] sm:mb-4">{copy.market.catLabel}</p>
+                        <h3 className="mb-2 font-headline text-2xl text-primary sm:text-3xl">{copy.market.catValue}</h3>
+                        <div className="flex items-center gap-2 text-sm font-semibold text-primary">
+                            <span className="material-symbols-outlined text-sm">trending_up</span>
+                            <span>{copy.market.yoy}</span>
+                        </div>
+                    </div>
+                    <div className="rounded-lg border border-[#72503A]/15 bg-[#FFEFD6] p-5 shadow-sm transition-colors hover:bg-[#f0e0c9] sm:p-6">
+                        <p className="mb-3 font-label text-xs uppercase tracking-widest text-[#72503A] sm:mb-4">{copy.market.brandLabel}</p>
+                        <h3 className="mb-2 font-headline text-2xl text-[#2b160f] sm:text-3xl">Patek Philippe</h3>
+                        <p className="text-sm italic text-[#56423b]">{copy.market.brandSub}</p>
+                    </div>
+                    <div className="rounded-lg border border-[#72503A]/15 bg-[#FFEFD6] p-5 shadow-sm transition-colors hover:bg-[#f0e0c9] sm:p-6">
+                        <p className="mb-3 font-label text-xs uppercase tracking-widest text-[#72503A] sm:mb-4">{copy.market.modelLabel}</p>
+                        <h3 className="mb-2 font-headline text-2xl text-[#2b160f] sm:text-3xl">Nautilus 5711</h3>
+                        <div className="flex items-center gap-2">
+                            <span className="h-2 w-2 rounded-full bg-primary" />
+                            <span className="text-sm font-medium text-[#56423b]">{copy.market.liquidity}</span>
+                        </div>
+                    </div>
+                    <div className="rounded-lg border border-[#72503A]/15 bg-[#FFEFD6] p-5 shadow-sm transition-colors hover:bg-[#f0e0c9] sm:p-6">
+                        <p className="mb-3 font-label text-xs uppercase tracking-widest text-[#72503A] sm:mb-4">{copy.market.eraLabel}</p>
+                        <h3 className="mb-2 font-headline text-2xl text-[#2b160f] sm:text-3xl">1970 – 1985</h3>
+                        <p className="text-sm font-medium text-[#56423b]">{copy.market.eraSub}</p>
+                    </div>
+                    <div className="premium-gradient flex flex-col justify-between rounded-lg p-5 shadow-xl sm:p-6 md:col-span-2 lg:col-span-1">
+                        <div>
+                            <p className="mb-3 font-label text-xs uppercase tracking-widest text-on-primary opacity-80 sm:mb-4">{copy.market.indexStatus}</p>
+                            <h3 className="font-headline text-2xl font-bold text-on-primary sm:text-3xl">{copy.market.indexName}</h3>
+                        </div>
+                        <div className="mt-4 flex items-end justify-between sm:mt-0">
+                            <span className="text-xl font-bold tracking-tighter text-on-primary">482.90</span>
+                            <span className="material-symbols-outlined text-on-primary" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section className="space-y-4 sm:space-y-6">
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                            <h2 className="font-headline text-xl tracking-tight text-[#FFEFD6] sm:text-2xl">{copy.market.sectionTitle}</h2>
+                            <p className="mt-1 text-xs text-[#FFEFD6]/70">{copy.market.usdNote}</p>
+                        </div>
+                        <div className="flex flex-wrap gap-2 sm:gap-4">
+                            <button type="button" className="font-label flex items-center gap-2 rounded-sm border border-[#72503A]/20 bg-[#FFEFD6] px-3 py-2 text-xs text-[#2b160f] shadow-sm transition-colors hover:bg-[#f0e0c9] sm:px-4 sm:text-sm">
+                                <span className="material-symbols-outlined text-sm">filter_list</span>
+                                {copy.market.filter}
+                            </button>
+                            <button type="button" className="font-label flex items-center gap-2 rounded-sm bg-[#4d3600] px-3 py-2 text-xs font-semibold text-white shadow-md transition-all hover:brightness-110 sm:px-4 sm:text-sm">
+                                <span className="material-symbols-outlined text-sm">download</span>
+                                {copy.market.export}
+                            </button>
+                        </div>
+                    </div>
+                    <div className="-mx-4 overflow-hidden rounded-xl border border-[#72503A]/20 bg-[#FFEFD6] shadow-2xl sm:mx-0">
+                        <TableScroll className="max-w-[100vw] sm:max-w-none">
+                            <table className="min-w-[640px] w-full border-collapse text-left">
+                                <thead>
+                                    <tr className="bg-[#f0e0c9]">
+                                        <th className="whitespace-nowrap px-4 py-4 font-label text-xs font-semibold uppercase tracking-wider text-[#56423b] sm:px-8 sm:py-5">{copy.market.thAsset}</th>
+                                        <th className="whitespace-nowrap px-4 py-4 font-label text-xs font-semibold uppercase tracking-wider text-[#56423b] sm:px-8 sm:py-5">{copy.market.thRef}</th>
+                                        <th className="whitespace-nowrap px-4 py-4 text-right font-label text-xs font-semibold uppercase tracking-wider text-[#56423b] sm:px-8 sm:py-5">{copy.market.thPrice}</th>
+                                        <th className="whitespace-nowrap px-4 py-4 text-right font-label text-xs font-semibold uppercase tracking-wider text-[#56423b] sm:px-8 sm:py-5">{copy.market.thDelta}</th>
+                                        <th className="whitespace-nowrap px-4 py-4 text-right font-label text-xs font-semibold uppercase tracking-wider text-[#56423b] sm:px-8 sm:py-5">{copy.market.thStatus}</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-[#72503A]/10">
+                                    {MARKET_TABLE_ROWS.map((row, i) => (
+                                        <tr
+                                            key={i}
+                                            className={`transition-colors hover:bg-[#f0e0c9] ${i % 2 === 1 ? 'bg-[#faefd9]' : 'bg-[#FFEFD6]'}`}
+                                        >
+                                            <td className="px-4 py-4 font-semibold text-[#2b160f] sm:px-8 sm:py-6">{row.name}</td>
+                                            <td className="px-4 py-4 font-label text-sm text-[#72503A] sm:px-8 sm:py-6">{row.ref}</td>
+                                            <td className="px-4 py-4 text-right font-headline text-base font-bold text-primary sm:px-8 sm:py-6 sm:text-lg">{row.price}</td>
+                                            <td className={`px-4 py-4 text-right font-bold sm:px-8 sm:py-6 ${row.color}`}>{row.delta}</td>
+                                            <td className="px-4 py-4 text-center sm:px-8 sm:py-6">
+                                                <span className="inline-block rounded-sm bg-primary px-2 py-1 text-[9px] font-bold uppercase text-white sm:px-3 sm:text-[10px]">{row.status}</span>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </TableScroll>
+                    </div>
+                </section>
+            </DashboardLayout>
+        );
+
+        const CRMAvatar = ({ initials }) => (
+            <div
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#72503A]/20 bg-[#72503A]/12 font-label text-xs font-bold text-[#4d3600]"
+                aria-hidden
+            >
+                {initials}
+            </div>
+        );
+
+        const CRMSegmentationPage = () => (
+            <DashboardLayout title={copy.pages.crmTitle}>
+                <section className="grid grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-12">
+                    <div className="relative flex flex-col justify-between overflow-hidden rounded-xl border border-[#72503A]/20 bg-[#F5F1E8] p-6 shadow-md sm:p-8 lg:col-span-5">
+                        <div>
+                            <p className="mb-2 font-label text-[10px] font-bold uppercase tracking-[0.2em] text-[#72503A] sm:mb-3 sm:text-xs">{copy.crm.totalBalance}</p>
+                            <h3 className="font-headline text-3xl font-bold tracking-tight text-[#2b160f] sm:text-4xl lg:text-5xl">{fmtBaht(42890400000)}</h3>
+                        </div>
+                        <div className="mt-8 flex flex-wrap gap-3 sm:mt-10">
+                            <div className="min-w-[140px] flex-1 rounded-lg border border-[#72503A]/15 bg-white/50 px-4 py-3">
+                                <p className="font-label text-[10px] font-semibold uppercase tracking-wide text-[#72503A]">{copy.crm.activeSegmentsLabel}</p>
+                                <p className="mt-1 font-headline text-lg font-bold text-[#2b160f]">{copy.crm.activeSegmentsValue}</p>
+                            </div>
+                            <div className="min-w-[140px] flex-1 rounded-lg border border-[#72503A]/15 bg-white/50 px-4 py-3">
+                                <p className="font-label text-[10px] font-semibold uppercase tracking-wide text-[#72503A]">{copy.crm.growthIndexLabel}</p>
+                                <p className="mt-1 font-headline text-lg font-bold text-[#735c00]">{copy.crm.growthIndexValue}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex flex-col rounded-xl border border-t-4 border-t-[#775A19] border-[#72503A]/15 bg-[#F5F1E8] p-5 shadow-md sm:p-6 lg:col-span-4">
+                        <span className="material-symbols-outlined mb-3 text-3xl text-[#775A19]" style={{ fontVariationSettings: "'FILL' 1" }}>
+                            diamond
+                        </span>
+                        <h4 className="font-headline text-xl font-bold text-[#2b160f]">{copy.crm.segATitle}</h4>
+                        <p className="mt-1 font-label text-xs font-semibold uppercase tracking-wide text-[#72503A]">{copy.crm.segASub}</p>
+                        <p className="mt-4 font-body text-2xl font-bold text-[#2b160f]">{copy.crm.clients142}</p>
+                        <p className="mt-2 font-label text-sm font-semibold text-[#56423b]">{copy.crm.segAvgEquity}</p>
+                    </div>
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:col-span-3 lg:grid-cols-1 lg:gap-5">
+                        <div className="flex flex-col rounded-xl border border-[#72503A]/15 bg-[#F5F1E8] p-5 shadow-md sm:p-6">
+                            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full border border-[#53433F]/25 bg-[#53433F]/10">
+                                <span className="material-symbols-outlined text-2xl text-[#53433F]">stars</span>
+                            </div>
+                            <h4 className="font-headline text-lg font-bold text-[#2b160f] sm:text-xl">{copy.crm.segBTitle}</h4>
+                            <p className="mt-1 font-label text-xs font-semibold uppercase tracking-wide text-[#72503A]">{copy.crm.segBSub}</p>
+                            <p className="mt-3 font-body text-xl font-bold text-[#2b160f] sm:text-2xl">{copy.crm.entities38}</p>
+                            <p className="mt-2 font-label text-sm font-semibold text-[#56423b]">{copy.crm.segBAssets}</p>
+                        </div>
+                        <div className="flex flex-col rounded-xl border border-[#72503A]/15 bg-[#F5F1E8] p-5 shadow-md sm:p-6">
+                            <span className="material-symbols-outlined mb-3 text-3xl text-[#72503A]">verified_user</span>
+                            <h4 className="font-headline text-lg font-bold text-[#2b160f] sm:text-xl">{copy.crm.segCTitle}</h4>
+                            <p className="mt-1 font-label text-xs font-semibold uppercase tracking-wide text-[#72503A]">{copy.crm.segCSub}</p>
+                            <p className="mt-3 font-body text-xl font-bold text-[#2b160f] sm:text-2xl">{copy.crm.clients905}</p>
+                            <p className="mt-2 font-label text-sm font-semibold text-[#56423b]">{copy.crm.segCTarget}</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section className="space-y-4">
+                    <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+                        <div>
+                            <h3 className="font-headline text-xl font-bold text-[#FFEFD6] sm:text-2xl lg:text-3xl">{copy.crm.matrixTitle}</h3>
+                            <p className="mt-1 max-w-2xl font-label text-sm text-[#FFEFD6]/75">{copy.crm.matrixSubtitle}</p>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                            <button
+                                type="button"
+                                className="font-label flex items-center gap-2 rounded-sm border border-[#72503A]/25 bg-[#F5F1E8] px-4 py-2.5 text-xs font-semibold text-[#2b160f] shadow-sm transition-colors hover:bg-[#ebe4d4] sm:text-sm"
+                            >
+                                <span className="material-symbols-outlined text-lg">filter_list</span>
+                                {copy.crm.filter}
+                            </button>
+                            <button
+                                type="button"
+                                className="font-label flex items-center gap-2 rounded-sm bg-[#3d2a22] px-4 py-2.5 text-xs font-semibold text-[#F5F1E8] shadow-md transition-colors hover:bg-[#2b1d18] sm:text-sm"
+                            >
+                                <span className="material-symbols-outlined text-lg">download</span>
+                                {copy.crm.downloadReport}
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="overflow-hidden rounded-xl border border-[#72503A]/25 bg-[#F5F1E8] shadow-lg">
+                        <TableScroll>
+                            <table className="min-w-[860px] w-full border-collapse text-left">
+                                <thead>
+                                    <tr className="border-b border-[#72503A]/12 bg-[#ebe4d4] text-[10px] font-bold uppercase tracking-wide text-[#56423b] sm:text-xs">
+                                        <th className="whitespace-nowrap px-4 py-3 sm:px-5 sm:py-4">{copy.crm.thLoan}</th>
+                                        <th className="whitespace-nowrap px-4 py-3 sm:px-5 sm:py-4">{copy.crm.thClient}</th>
+                                        <th className="whitespace-nowrap px-4 py-3 text-center sm:px-5 sm:py-4">{copy.crm.thSegment}</th>
+                                        <th className="whitespace-nowrap px-4 py-3 text-right sm:px-5 sm:py-4">{copy.crm.thExposure}</th>
+                                        <th className="whitespace-nowrap px-4 py-3 sm:px-5 sm:py-4">{copy.crm.thStatus}</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-[#72503A]/10 font-label text-sm">
+                                    {CRM_MATRIX_ROWS.map((row, i) => {
+                                        const st = crmMatrixStatus(row.statusKey);
+                                        const badge = crmBadgeLabel(row.segment);
+                                        return (
+                                            <tr
+                                                key={row.id}
+                                                className={`cursor-pointer transition-colors hover:bg-[#ebe4d4] ${i % 2 === 1 ? 'bg-[#faf6ee]' : 'bg-[#F5F1E8]'}`}
+                                            >
+                                                <td className="whitespace-nowrap px-4 py-4 font-headline font-bold text-[#72503A] sm:px-5 sm:py-5">#{row.id}</td>
+                                                <td className="px-4 py-4 sm:px-5 sm:py-5">
+                                                    <div className="flex items-center gap-3">
+                                                        <CRMAvatar initials={row.initials} />
+                                                        <span className="font-semibold text-[#2b160f]">{row.client}</span>
+                                                    </div>
+                                                </td>
+                                                <td className="px-4 py-4 text-center sm:px-5 sm:py-5">
+                                                    <span
+                                                        className={`inline-block rounded border px-3 py-1 text-[10px] font-bold uppercase tracking-wide sm:text-xs ${crmSegmentBadgeClass(row.segment)}`}
+                                                    >
+                                                        {badge}
+                                                    </span>
+                                                </td>
+                                                <td className="whitespace-nowrap px-4 py-4 text-right font-headline text-base font-bold text-primary sm:px-5 sm:py-5">
+                                                    {fmtBaht(row.exposure)}
+                                                </td>
+                                                <td className="px-4 py-4 sm:px-5 sm:py-5">
+                                                    <div className={`flex items-center gap-2 font-label text-xs font-bold sm:text-sm ${st.text}`}>
+                                                        <span className={`h-2 w-2 shrink-0 rounded-full ${st.dot}`} aria-hidden />
+                                                        <span>{st.label}</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </TableScroll>
+                        <div className="flex flex-col gap-3 border-t border-[#72503A]/10 bg-[#ebe4d4] px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+                            <p className="font-label text-xs text-[#56423b] sm:text-sm">
+                                {copy.crm.tableFooter(CRM_MATRIX_ROWS.length, CRM_MATRIX_TOTAL)}
+                            </p>
+                            <div className="flex items-center gap-1">
+                                <button type="button" className="rounded px-2 py-1 text-sm text-[#72503A] hover:bg-black/5" aria-label="ก่อนหน้า">
+                                    ‹
+                                </button>
+                                {[1, 2, 3].map((p) => (
+                                    <button
+                                        key={p}
+                                        type="button"
+                                        className={`min-w-[2rem] rounded px-2 py-1 text-sm font-semibold ${p === 1 ? 'bg-[#3d2a22] text-[#F5F1E8]' : 'text-[#72503A] hover:bg-black/5'}`}
+                                    >
+                                        {p}
+                                    </button>
+                                ))}
+                                <button type="button" className="rounded px-2 py-1 text-sm text-[#72503A] hover:bg-black/5" aria-label="ถัดไป">
+                                    ›
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </DashboardLayout>
+        );
+
+        const CreditRiskCard = ({ badgeLabel, badgeClass, percentile, showSeal, gradeTitle, description, assetsCount, trend, trendClass }) => (
+            <div className="flex flex-col rounded-xl border border-[#3d2a22]/20 bg-[#fdf6ea] p-5 shadow-md sm:p-7">
+                <div className="mb-5 flex items-start justify-between gap-3">
+                    <span className={`rounded-sm px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white sm:text-xs ${badgeClass}`}>{badgeLabel}</span>
+                    <div className="flex items-center gap-1.5 text-right">
+                        {showSeal ? (
+                            <span className="material-symbols-outlined text-xl text-[#b39016]" style={{ fontVariationSettings: "'FILL' 1" }}>
+                                workspace_premium
+                            </span>
+                        ) : null}
+                        <span className="font-label text-xs font-semibold text-[#72503A] sm:text-sm">{percentile}</span>
+                    </div>
+                </div>
+                <h3 className="font-headline text-3xl font-bold tracking-tight text-[#2b160f] sm:text-4xl md:text-5xl">{gradeTitle}</h3>
+                <p className="mt-2 font-label text-sm leading-relaxed text-[#56423b] sm:text-base">{description}</p>
+                <div className="mt-6 border-t border-[#72503A]/15 pt-5">
+                    <div className="flex flex-wrap items-end justify-between gap-2">
+                        <p className="font-label text-xs font-bold uppercase tracking-wider text-[#72503A] sm:text-sm">{copy.credit.assetsFooter(assetsCount)}</p>
+                        <p className={`font-label text-sm font-bold sm:text-base ${trendClass}`}>{trend}</p>
+                    </div>
+                </div>
+            </div>
+        );
+
+        const CreditRiskPage = () => (
+            <DashboardLayout title={copy.pages.creditTitle}>
+                <section className="flex flex-col gap-4 sm:gap-6 lg:flex-row lg:items-start lg:justify-between">
+                    <div className="max-w-2xl space-y-2">
+                        <p className="font-label text-[10px] font-semibold uppercase tracking-[0.25em] text-[#FFDEA5] sm:text-xs">{copy.credit.kicker}</p>
+                        <h2 className="font-headline text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">{copy.pages.creditHeroTitle}</h2>
+                    </div>
+                    <div className="flex flex-shrink-0 flex-wrap gap-2 sm:gap-3 lg:justify-end">
+                        <button
+                            type="button"
+                            className="font-label rounded-sm bg-[#FFEFD6] px-4 py-2.5 text-xs font-semibold text-[#2b160f] shadow-sm transition-colors hover:bg-[#f0e0c9] sm:px-5 sm:text-sm"
+                        >
+                            {copy.credit.generateReport}
+                        </button>
+                        <button
+                            type="button"
+                            className="font-label rounded-sm border border-white/70 bg-transparent px-4 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-white/10 sm:px-5 sm:text-sm"
+                        >
+                            {copy.credit.filterParams}
+                        </button>
+                    </div>
+                </section>
+
+                <section className="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-6 lg:gap-8">
+                    <CreditRiskCard
+                        badgeLabel={copy.credit.premium}
+                        badgeClass="bg-[#5c4a28]"
+                        percentile={copy.credit.aaPercentile}
+                        showSeal={true}
+                        gradeTitle={copy.credit.gradeAA}
+                        description={copy.credit.aaDesc}
+                        assetsCount={1248}
+                        trend={copy.credit.trendUp}
+                        trendClass="text-[#b39016]"
+                    />
+                    <CreditRiskCard
+                        badgeLabel={copy.credit.standard}
+                        badgeClass="bg-[#53433F]"
+                        percentile={copy.credit.bbPercentile}
+                        showSeal={false}
+                        gradeTitle={copy.credit.gradeBB}
+                        description={copy.credit.bbDesc}
+                        assetsCount={4812}
+                        trend={copy.credit.trendDown}
+                        trendClass="text-[#BA1A1A]"
+                    />
+                    <CreditRiskCard
+                        badgeLabel={copy.credit.speculative}
+                        badgeClass="bg-[#BA1A1A]"
+                        percentile={copy.credit.ccPercentile}
+                        showSeal={false}
+                        gradeTitle={copy.credit.gradeCC}
+                        description={copy.credit.ccDesc}
+                        assetsCount={892}
+                        trend={copy.credit.trendFlat}
+                        trendClass="text-[#72503A]"
+                    />
+                </section>
+
+                <section className="overflow-hidden rounded-xl border border-[#72503A]/25 bg-[#FFEFD6] shadow-xl">
+                    <div className="flex flex-col gap-3 border-b border-[#72503A]/15 bg-[#f0e0c9] px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-5">
+                        <h3 className="font-headline text-lg font-bold text-[#2b160f] sm:text-xl">{copy.credit.ledgerTitle}</h3>
+                        <span className="inline-flex w-fit rounded-full bg-[#72503A]/10 px-3 py-1 font-label text-xs font-semibold text-[#56423b]">
+                            {copy.credit.ledgerShowing(CREDIT_LEDGER_TOTAL)}
+                        </span>
+                    </div>
+                    <div className="-mx-4 sm:mx-0">
+                        <TableScroll>
+                            <table className="min-w-[720px] w-full border-collapse text-left">
+                                <thead>
+                                    <tr className="border-b border-[#72503A]/10 bg-[#faefd9] text-[10px] font-bold uppercase tracking-wide text-[#56423b] sm:text-xs">
+                                        <th className="whitespace-nowrap px-4 py-3 sm:px-6 sm:py-4">{copy.credit.thLoanId}</th>
+                                        <th className="whitespace-nowrap px-4 py-3 sm:px-6 sm:py-4">{copy.credit.thAge}</th>
+                                        <th className="whitespace-nowrap px-4 py-3 text-right sm:px-6 sm:py-4">{copy.credit.thIncome}</th>
+                                        <th className="whitespace-nowrap px-4 py-3 text-center sm:px-6 sm:py-4">{copy.credit.thRisk}</th>
+                                        <th className="whitespace-nowrap px-4 py-3 text-center sm:px-6 sm:py-4">{copy.credit.thNcb}</th>
+                                        <th className="whitespace-nowrap px-4 py-3 text-center sm:px-6 sm:py-4">{copy.credit.thAction}</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-[#72503A]/10 font-label text-sm text-[#2b160f]">
+                                    {CREDIT_LEDGER_ROWS.map((row, i) => (
+                                            <tr key={row.id} className={`transition-colors hover:bg-[#f0e0c9] ${i % 2 === 1 ? 'bg-[#faefd9]/80' : 'bg-[#FFEFD6]'}`}>
+                                                <td className="px-4 py-4 sm:px-6 sm:py-5">
+                                                    <p className="font-headline font-bold text-[#2b160f]">#{row.id}</p>
+                                                    <p className="mt-0.5 text-xs font-medium uppercase tracking-wide text-[#72503A]">{row.product}</p>
+                                                </td>
+                                                <td className="whitespace-nowrap px-4 py-4 font-semibold sm:px-6 sm:py-5">
+                                                    {row.age} {copy.credit.ageUnit}
+                                                </td>
+                                                <td className="whitespace-nowrap px-4 py-4 text-right font-headline text-base font-bold text-primary sm:px-6 sm:py-5">{fmtBaht(row.income)}</td>
+                                                <td className="px-4 py-4 text-center sm:px-6 sm:py-5">
+                                                    <span className={`inline-block rounded-sm px-2.5 py-1 text-[10px] font-bold sm:text-xs ${creditGradeBadgeClass(row.grade)}`}>{row.grade}</span>
+                                                </td>
+                                                <td className="px-4 py-4 text-center sm:px-6 sm:py-5">
+                                                    {row.ncbOk ? (
+                                                        <span className="material-symbols-outlined text-[#72503A]" title="ครบถ้วน">
+                                                            description
+                                                        </span>
+                                                    ) : (
+                                                        <span className="material-symbols-outlined text-[#BA1A1A]" title="ต้องตรวจสอบ">
+                                                            warning
+                                                        </span>
+                                                    )}
+                                                </td>
+                                                <td className="px-4 py-4 text-center sm:px-6 sm:py-5">
+                                                    <button type="button" className="inline-flex rounded p-1 text-[#72503A] hover:bg-black/5" aria-label="เมนู">
+                                                        <span className="material-symbols-outlined text-xl">more_vert</span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </TableScroll>
+                    </div>
+                </section>
+            </DashboardLayout>
+        );
+
+        const NPLChartMonths = ['ม.ค.', 'มี.ค.', 'พ.ค.', 'ก.ค.', 'ก.ย.', 'พ.ย.'];
+
+        const NPLAnalyticsPage = () => (
+            <DashboardLayout title={copy.pages.nplTitle}>
+                <section className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                    <div className="max-w-3xl space-y-3">
+                        <h2 className="font-headline text-3xl font-bold leading-tight text-[#F5F1E8] sm:text-4xl lg:text-[2.75rem]">{copy.pages.nplHeroTitle}</h2>
+                        <p className="font-label text-sm leading-relaxed text-[#F5F1E8]/85 sm:text-base">{copy.npl.subtitle}</p>
+                    </div>
+                    <div className="flex flex-shrink-0 flex-wrap gap-2 sm:gap-3 lg:justify-end">
+                        <button
+                            type="button"
+                            className="font-label rounded-sm border border-[#F5F1E8]/70 bg-transparent px-4 py-2.5 text-xs font-semibold text-[#F5F1E8] transition-colors hover:bg-white/10 sm:px-5 sm:text-sm"
+                        >
+                            {copy.npl.exportReport}
+                        </button>
+                        <button
+                            type="button"
+                            className="font-label rounded-sm bg-[#e9c349] px-4 py-2.5 text-xs font-semibold text-[#2b160f] shadow-md transition-colors hover:bg-[#ddb62e] sm:px-5 sm:text-sm"
+                        >
+                            {copy.npl.riskPolicy}
+                        </button>
+                    </div>
+                </section>
+
+                <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                    <div className="rounded-xl border border-[#3d2a22]/15 bg-[#F5F1E8] p-5 shadow-md sm:p-6">
+                        <p className="font-label text-[10px] font-bold uppercase tracking-widest text-[#72503A] sm:text-xs">{copy.npl.aum}</p>
+                        <div className="mt-2 flex items-baseline gap-1">
+                            <span className="font-headline text-3xl font-bold text-[#2b160f]">{copy.npl.aumValueMain}</span>
+                            <span className="font-headline text-lg font-semibold italic text-[#735c00]">{copy.npl.aumValueUnit}</span>
+                        </div>
+                        <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-[#e8ddd0]">
+                            <div className="h-full w-[82%] rounded-full bg-[#b39016]" />
+                        </div>
+                    </div>
+                    <div className="rounded-xl border border-[#3d2a22]/15 bg-[#F5F1E8] p-5 shadow-md sm:p-6">
+                        <p className="font-label text-[10px] font-bold uppercase tracking-widest text-[#72503A] sm:text-xs">{copy.npl.nplAmt}</p>
+                        <div className="mt-2 flex items-baseline gap-1">
+                            <span className="font-headline text-3xl font-bold text-[#B00020]">{copy.npl.nplAmtMain}</span>
+                            <span className="font-headline text-lg font-semibold italic text-[#B00020]/90">{copy.npl.nplAmtUnit}</span>
+                        </div>
+                        <p className="mt-3 font-label text-xs font-semibold text-[#B00020] sm:text-sm">{copy.npl.nplMoM}</p>
+                    </div>
+                    <div className="rounded-xl border border-[#3d2a22]/15 bg-[#F5F1E8] p-5 shadow-md sm:p-6">
+                        <p className="font-label text-[10px] font-bold uppercase tracking-widest text-[#72503A] sm:text-xs">{copy.npl.nplRatio}</p>
+                        <div className="mt-2 flex items-baseline gap-1">
+                            <span className="font-headline text-3xl font-bold text-[#2b160f]">2.81</span>
+                            <span className="font-headline text-lg font-semibold italic text-[#735c00]">%</span>
+                        </div>
+                        <div className="mt-4 flex gap-2">
+                            {[0, 1, 2, 3].map((i) => (
+                                <span
+                                    key={i}
+                                    className={`h-2.5 w-2.5 rounded-full transition-colors ${i === 1 ? 'bg-[#735c00]' : 'bg-[#d4c4b0]'}`}
+                                    aria-hidden
+                                />
+                            ))}
+                        </div>
+                    </div>
+                    <div className="rounded-xl border border-[#3d2a22]/15 bg-[#F5F1E8] p-5 shadow-md sm:p-6">
+                        <p className="font-label text-[10px] font-bold uppercase tracking-widest text-[#72503A] sm:text-xs">{copy.npl.recovery}</p>
+                        <div className="mt-2 flex items-baseline gap-1">
+                            <span className="font-headline text-3xl font-bold text-[#2b160f]">64.2</span>
+                            <span className="font-headline text-lg font-semibold italic text-[#735c00]">%</span>
+                        </div>
+                        <div className="mt-3 flex items-center gap-1.5 font-label text-xs text-[#72503A] sm:text-sm">
+                            <span className="material-symbols-outlined text-base text-[#735c00]">track_changes</span>
+                            <span>{copy.npl.recoveryTarget}</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section className="overflow-hidden rounded-xl border border-[#72503A]/25 bg-[#F5F1E8] shadow-xl">
+                    <div className="flex flex-col gap-3 border-b border-[#72503A]/12 bg-[#ebe4d4] px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-5">
+                        <h3 className="font-headline text-lg font-bold text-[#2b160f] sm:text-xl">{copy.npl.segmentTitle}</h3>
+                        <div className="flex items-center gap-2 text-[#72503A]">
+                            <button type="button" className="rounded p-2 hover:bg-black/5" aria-label="กรอง">
+                                <span className="material-symbols-outlined text-xl">filter_list</span>
+                            </button>
+                            <button type="button" className="rounded p-2 hover:bg-black/5" aria-label="ดาวน์โหลด">
+                                <span className="material-symbols-outlined text-xl">download</span>
+                            </button>
+                        </div>
+                    </div>
+                    <TableScroll>
+                        <table className="min-w-[900px] w-full border-collapse text-left">
+                            <thead>
+                                <tr className="border-b border-[#72503A]/10 bg-[#f0ebe0] text-[10px] font-bold uppercase tracking-wide text-[#56423b] sm:text-xs">
+                                    <th className="whitespace-nowrap px-4 py-3 sm:px-5 sm:py-4">{copy.npl.thCluster}</th>
+                                    <th className="whitespace-nowrap px-4 py-3 sm:px-5 sm:py-4">{copy.npl.thExposure}</th>
+                                    <th className="whitespace-nowrap px-4 py-3 text-right sm:px-5 sm:py-4">{copy.npl.thDpd}</th>
+                                    <th className="whitespace-nowrap px-4 py-3 text-right sm:px-5 sm:py-4">{copy.npl.thPar}</th>
+                                    <th className="whitespace-nowrap px-4 py-3 text-right sm:px-5 sm:py-4">{copy.npl.thRatio}</th>
+                                    <th className="whitespace-nowrap px-4 py-3 text-center sm:px-5 sm:py-4">{copy.npl.thStatus}</th>
+                                    <th className="whitespace-nowrap px-4 py-3 text-center sm:px-5 sm:py-4">{copy.npl.thAction}</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-[#72503A]/10 font-label text-sm">
+                                {NPL_SEGMENT_ROWS.map((row, i) => {
+                                    const badge = nplStatusBadge(row.statusKey);
+                                    return (
+                                        <tr
+                                            key={row.cluster}
+                                            className={`transition-colors hover:bg-[#ebe4d4] ${i % 2 === 1 ? 'bg-[#faf6ee]' : 'bg-[#F5F1E8]'}`}
+                                        >
+                                            <td className="px-4 py-4 sm:px-5 sm:py-5">
+                                                <p className="font-headline font-bold text-[#2b160f]">{row.cluster}</p>
+                                                <p className="mt-0.5 text-xs font-medium uppercase tracking-wide text-[#72503A]">{row.sub}</p>
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4 font-semibold text-[#2b160f] sm:px-5 sm:py-5">{row.exposure}</td>
+                                            <td className={`whitespace-nowrap px-4 py-4 text-right font-bold sm:px-5 sm:py-5 ${row.dpdWarn ? 'text-[#B00020]' : 'text-[#2b160f]'}`}>{row.dpd}</td>
+                                            <td className={`whitespace-nowrap px-4 py-4 text-right font-semibold sm:px-5 sm:py-5 ${row.ratioWarn ? 'text-[#B00020]' : 'text-[#2b160f]'}`}>{row.par}</td>
+                                            <td className={`whitespace-nowrap px-4 py-4 text-right font-bold sm:px-5 sm:py-5 ${row.ratioWarn ? 'text-[#B00020]' : 'text-[#735c00]'}`}>{row.ratio}</td>
+                                            <td className="px-4 py-4 text-center sm:px-5 sm:py-5">
+                                                <span className={`inline-block rounded-full px-3 py-1 text-[10px] font-bold sm:text-xs ${badge.className}`}>{badge.label}</span>
+                                            </td>
+                                            <td className="px-4 py-4 text-center sm:px-5 sm:py-5">
+                                                <button type="button" className="font-label text-xs font-bold uppercase tracking-wide text-[#735c00] underline-offset-2 hover:underline sm:text-sm">
+                                                    {copy.npl.viewDetails}
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </TableScroll>
+                    <div className="flex flex-col gap-3 border-t border-[#72503A]/10 bg-[#ebe4d4] px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+                        <p className="font-label text-xs text-[#56423b] sm:text-sm">{copy.npl.tableFooter(NPL_SEGMENT_ROWS.length, NPL_CLUSTER_TOTAL)}</p>
+                        <div className="flex items-center gap-1">
+                            <button type="button" className="rounded px-2 py-1 text-sm text-[#72503A] hover:bg-black/5" aria-label="ก่อนหน้า">
+                                ‹
+                            </button>
+                            {[1, 2, 3].map((p) => (
+                                <button
+                                    key={p}
+                                    type="button"
+                                    className={`min-w-[2rem] rounded px-2 py-1 text-sm font-semibold ${p === 1 ? 'bg-[#735c00] text-white' : 'text-[#72503A] hover:bg-black/5'}`}
+                                >
+                                    {p}
+                                </button>
+                            ))}
+                            <button type="button" className="rounded px-2 py-1 text-sm text-[#72503A] hover:bg-black/5" aria-label="ถัดไป">
+                                ›
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <section className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6">
+                    <div className="flex flex-col rounded-xl border border-[#3d2a22]/15 bg-[#F5F1E8] p-5 shadow-md sm:p-6">
+                        <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                            <h3 className="font-headline text-lg font-bold text-[#2b160f] sm:text-xl">{copy.npl.historicalTitle}</h3>
+                            <span className="inline-flex w-fit rounded border border-[#72503A]/25 bg-[#faf6ee] px-3 py-1 font-label text-[10px] font-bold uppercase tracking-wide text-[#56423b]">
+                                {copy.npl.historicalRange}
+                            </span>
+                        </div>
+                        <div className="relative min-h-[180px] flex-1">
+                            <svg className="h-full w-full" viewBox="0 0 400 140" preserveAspectRatio="xMidYMid meet" aria-hidden>
+                                <defs>
+                                    <linearGradient id="nplAreaGradient" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stopColor="#b39016" stopOpacity="0.4" />
+                                        <stop offset="100%" stopColor="#b39016" stopOpacity="0.02" />
+                                    </linearGradient>
+                                </defs>
+                                <path
+                                    fill="url(#nplAreaGradient)"
+                                    d="M0,95 C50,88 60,102 100,78 S180,55 220,62 S300,40 340,48 S380,35 400,42 L400,140 L0,140 Z"
+                                />
+                                <path
+                                    fill="none"
+                                    stroke="#735c00"
+                                    strokeWidth="2.5"
+                                    d="M0,95 C50,88 60,102 100,78 S180,55 220,62 S300,40 340,48 S380,35 400,42"
+                                />
+                            </svg>
+                            <div className="mt-1 flex justify-between px-1 font-label text-[10px] font-medium text-[#72503A] sm:text-xs">
+                                {NPLChartMonths.map((m) => (
+                                    <span key={m}>{m}</span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex flex-col rounded-xl border border-[#3d2a22]/15 bg-[#F5F1E8] p-5 shadow-md sm:p-6">
+                        <span className="material-symbols-outlined mb-3 text-2xl text-[#735c00]">description</span>
+                        <h3 className="font-headline text-lg font-bold text-[#2b160f] sm:text-xl">{copy.npl.liquidityTitle}</h3>
+                        <p className="mt-3 flex-1 font-label text-sm leading-relaxed text-[#56423b] sm:text-base">{copy.npl.liquidityBody}</p>
+                        <button
+                            type="button"
+                            className="font-label mt-6 w-full rounded-sm border-2 border-[#4d3600] bg-[#faf6ee] py-3 text-xs font-bold uppercase tracking-wide text-[#2b160f] transition-colors hover:bg-[#f0e8d8] sm:text-sm"
+                        >
+                            {copy.npl.liquidityCta}
+                        </button>
+                    </div>
+                </section>
+            </DashboardLayout>
+        );
+
+        const App = () => {
+            const location = useLocation();
+            const [mobileNavOpen, setMobileNavOpen] = useState(false);
+            const showSidebar = location.pathname !== '/';
+            const closeMobileNav = () => setMobileNavOpen(false);
+
+            return (
+                <DashboardUIContext.Provider value={{ mobileNavOpen, setMobileNavOpen, closeMobileNav }}>
+                    <div className="min-h-screen bg-surface">
+                        {showSidebar && (
+                            <React.Fragment>
+                                <div
+                                    className={`fixed inset-0 z-40 bg-black/50 transition-opacity lg:hidden ${mobileNavOpen ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
+                                    onClick={closeMobileNav}
+                                    aria-hidden={!mobileNavOpen}
+                                />
+                                <Sidebar mobileOpen={mobileNavOpen} onClose={closeMobileNav} />
+                            </React.Fragment>
+                        )}
+                        <Routes>
+                            <Route path="/" element={<LoginPage />} />
+                            <Route path="/market" element={<MarketPricePage />} />
+                            <Route path="/crm" element={<CRMSegmentationPage />} />
+                            <Route path="/credit" element={<CreditRiskPage />} />
+                            <Route path="/npl" element={<NPLAnalyticsPage />} />
+                        </Routes>
+                    </div>
+                </DashboardUIContext.Provider>
+            );
+        };
+
+        const root = createRoot(document.getElementById('root'));
+        root.render(
+            <MemoryRouter>
+                <App />
+            </MemoryRouter>
+        );
+    </script>
+</body>
+</html>
